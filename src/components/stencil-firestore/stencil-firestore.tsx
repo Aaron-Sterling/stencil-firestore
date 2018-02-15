@@ -37,6 +37,7 @@ export class StencilFirestore {
 
   // delete
 
+  @Method()
   deleteDocument(path: string): Promise<void> {
     const docRef = docRefFromDocPath(this._mainFirebaseApp, path);
     return docRef.delete();
@@ -44,6 +45,7 @@ export class StencilFirestore {
 
   // existence check
 
+  @Method()
   documentExists(path: string): Promise<boolean> {
     const docRef = docRefFromDocPath(this._mainFirebaseApp, path);
     return docRef.get().then(snapshot => snapshot.exists);
@@ -52,18 +54,21 @@ export class StencilFirestore {
   // write
 
   // this method makes no changes if the document already exists
+  @Method()
   createNewDocument<T>(path: string, docToCreate: T): Promise<void> {
     const docRef = docRefFromDocPath(this._mainFirebaseApp, path);
     return docRef.set(docToCreate);
   }
 
   // this methd makes no changes if the document does not exist
+  @Method()
   updateExistingDocument<T>(path: string, docToUpdate: T): Promise<void> {
     const docRef = docRefFromDocPath(this._mainFirebaseApp, path);
     return docRef.update(docToUpdate);
   }
 
   // this method creates or updates, depending on whether the document already exists
+  @Method()
   upsertDocument<T>(path: string, doc: T): Promise<void> {
     return this.documentExists(path)
                .then(exists => {
