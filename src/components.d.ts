@@ -5,33 +5,42 @@
  */
 
 
+declare global {
+  interface HTMLStencilElement extends HTMLElement {
+    componentOnReady(): Promise<this>;
+    componentOnReady(done: (ele?: this) => void): void;
+  }
+}
+
+
+
 import {
-  MyComponent as MyComponent
-} from './components/my-component/my-component';
+  StencilFirestore as StencilFirestore
+} from './components/stencil-firestore/stencil-firestore';
 
 declare global {
-  interface HTMLMyComponentElement extends MyComponent, HTMLElement {
+  interface HTMLStencilFirestoreElement extends StencilFirestore, HTMLStencilElement {
   }
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
+  var HTMLStencilFirestoreElement: {
+    prototype: HTMLStencilFirestoreElement;
+    new (): HTMLStencilFirestoreElement;
   };
   interface HTMLElementTagNameMap {
-    "my-component": HTMLMyComponentElement;
+    "stencil-firestore": HTMLStencilFirestoreElement;
   }
   interface ElementTagNameMap {
-    "my-component": HTMLMyComponentElement;
+    "stencil-firestore": HTMLStencilFirestoreElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "my-component": JSXElements.MyComponentAttributes;
+      "stencil-firestore": JSXElements.StencilFirestoreAttributes;
     }
   }
   namespace JSXElements {
-    export interface MyComponentAttributes extends HTMLAttributes {
-      first?: string;
-      last?: string;
+    export interface StencilFirestoreAttributes extends HTMLAttributes {
+      
     }
   }
 }
 
+declare global { namespace JSX { interface StencilJSX {} } }
